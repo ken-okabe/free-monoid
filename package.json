@@ -1,0 +1,26 @@
+{
+  "name": "free-monoid",
+  "version": "0.0.1",
+  "description": "Free monoid in JavaScript",
+  "main": "index.js",
+  "scripts": {
+    "test": "node test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kenokabe/free-monoid.git"
+  },
+  "keywords": [
+    "free",
+    "monoid",
+    "monad",
+    "functional",
+    "functor"
+  ],
+  "author": "Ken OKABE",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/kenokabe/free-monoid/issues"
+  },
+  "homepage": "https://github.com/kenokabe/free-monoid#readme"
+}
