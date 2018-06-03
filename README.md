@@ -1,6 +1,6 @@
 # Free Monoid
 
-#### npm package: [https://www.npmjs.com/package/timeline-monoid](https://www.npmjs.com/package/timeline-monoid)
+#### npm package: [https://www.npmjs.com/package/free-monoid](https://www.npmjs.com/package/free-monoid)
 
 ### Free moniod in JavaScript  
 
