@@ -22,10 +22,10 @@
       })();
     M.identity = true;
     return M;
-  }
+  };
   //------------------
-  const exporting = (typeof module === 'object'
-  && typeof module.exports === 'object')
+  const exporting = (typeof module === "object"
+  && typeof module.exports === "object")
     ? module.exports = freeMonoid
     : self.freeMonoid = freeMonoid;
 //============================

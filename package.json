@@ -22,5 +22,8 @@
   "bugs": {
     "url": "https://github.com/kenokabe/free-monoid/issues"
   },
-  "homepage": "https://github.com/kenokabe/free-monoid#readme"
+  "homepage": "https://github.com/kenokabe/free-monoid#readme",
+  "devDependencies": {
+    "eslint": "^4.19.1"
+  }
 }
