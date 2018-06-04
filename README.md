@@ -4,6 +4,17 @@
 
 ### Free moniod in JavaScript  
 
+```js
+const M = freeMonoid(operator);
+```
+
+### Identity: (M)
+#### (M)(a) = (a) = (a)(M)
+
+### Associative
+
+#### ((a)(b))(c) = (a)(b)(c) = (a)((b)(c))
+
 ## Installation
 
 ```sh
