@@ -27,6 +27,6 @@
   const exporting = (typeof module === 'object'
   && typeof module.exports === 'object')
     ? module.exports = freeMonoid
-    : self.freemonoid = freeMonoid;
+    : self.freeMonoid = freeMonoid;
 //============================
 })();

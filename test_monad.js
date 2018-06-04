@@ -11,13 +11,13 @@
     }
   };
 
+  const _M = () => freeMonoid(operator);
   const operator = ab => {
     ab.eval = () => ab.units
       .map(unit => unit.val)
       .reduce(compose);
   };
-
-  const M = freeMonoid(operator);
+  const M = _M();
 
   const err = () => {
     throw new TypeError();

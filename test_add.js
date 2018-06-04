@@ -2,14 +2,14 @@
   "use strict";
 
   const freeMonoid = require("./index");
-
+  const _M = () => freeMonoid(operator);
   const operator = ab => {
     ab.eval = () => ab.units
       .map(unit => unit.val)
       .reduce((a, b) => (a + b));
   };
+  const M = _M();
 
-  const M = freeMonoid(operator);
   const x = M(1);
   const y = M(2);
   const z = M(100);
