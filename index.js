@@ -11,8 +11,10 @@
             : (() => {
               const ab = M();
               ab.units = a.units.concat(b.units);
+              ab.val = ab.units.map(unit => unit.val);
               return ab; // (a)(b)
             })();
+
         a.monoid = true;
         a.val = m;
         a.units = [a];

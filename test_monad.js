@@ -12,8 +12,8 @@
   };
 
   const _M = () => freeMonoid(operator);
-  const operator = ab => {
-    ab.eval = () => ab.units
+  const operator = list => {
+    list.eval = () => list.units
       .map(unit => unit.val)
       .reduce(compose);
   };
