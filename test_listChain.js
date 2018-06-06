@@ -6,7 +6,7 @@
   const _M = () => freeMonoid(operator);
   const operator = list => {
     const M = list.M;
-    list.freduce = (f) => (M)(f(list.val));
+    list.fold = (f) => (M)(list.val.reduce((M)(f).compose()));
     list.fmap = (f) => list.val
       .reduce(morphism((M)(f).compose()), (M));
     const morphism = (f) => (m, x) => (m)(f(x));
@@ -75,5 +75,10 @@
       .fmap((plus1)(plus1))
   );
 
+  mlog("--fold----")(
+    (M)(1)(2)(3)
+      .fmap((plus1)(plus1))
+      .fold((a, b) => (a + b))
+  );
 
 })();
