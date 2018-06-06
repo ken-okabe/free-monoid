@@ -57,7 +57,49 @@ console.log(xyz.eval()); //lazy eval
 103
 ```
 
+## List monad derived from `free-monoid`
+
+```js
+const _M = () => freeMonoid(operator);
+const operator = list => {
+  const M = list.M;
+  list.freduce = (f) => (M)(f(list.val));
+  list.fmap = (f) => list.val
+    .reduce(morphism((M)(f).compose()), (M));
+  const morphism = (f) => (m, x) => (m)(f(x));
+  list.compose = () => list.val
+    .reduce(composition);
+  const composition = (f, g) => (x => g(f(x)));
+};
+const M = _M();
+```
+
+```js
+const plus = (M)((x) => (y => x + y));
+
+mlog("------")(
+  (M)(1)
+    .fmap(M(5)
+      .fmap(plus))
+);
+
+const plus1 = (M)(1)
+  .fmap(plus);
+
+mlog("------")(
+  (M)(1)(2)(3)
+    .fmap((plus1)(plus1))
+);
+```
+
+```sh
+------
+6
+------
+3,4,5
+```
+
 ## Other derivatives from `free-monoid`
 
-#### Timeline Monoid
+### Timeline Monoid
 [https://www.npmjs.com/package/timeline-monoid](https://www.npmjs.com/package/timeline-monoid)
