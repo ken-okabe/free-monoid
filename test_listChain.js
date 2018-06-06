@@ -44,6 +44,12 @@
   mlog("------")(
     (M)(999).fmap(add1)
   );
+
+  const ff = (f) => f;
+  mlog("------")(
+    (add1).fmap(ff)
+  );
+
   mlog("------")(
     (add1)(add1).fmap(f => f(3)) //4,4
   );
