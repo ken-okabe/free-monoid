@@ -5,16 +5,14 @@
 
   const _M = () => freeMonoid(operator);
   const operator = list => {
+    const M = list.M;
+    list.reduce = (f) => (M)(f(list.val));
+    list.fmap = (f) => list.val
+      .reduce(morphism((M)(f).compose()), (M));
+    const morphism = (f) => (m, x) => (m)(f(x));
+    list.compose = () => list.val
+      .reduce(composition);
     const composition = (f, g) => (x => g(f(x)));
-    list.eval = () => list.val.reduce(composition); //lazy eval
-
-    list.chain = (f) => !f.M
-      ? list.val.reduce(reduction(f), (list.M))
-      : list.val.reduce(reduction(f.eval()), (list.M));
-    const reduction = (f) => (m, x) => (m)(f(x));
-
-    list.reduce = (f) => (list.M)(f(list.val));
-
   };
   const M = _M();
 
@@ -35,59 +33,44 @@
   const double = (a) => (M)(a)(a);
   const add1 = (M)((a) => (a + 1));
 
-  mlog("xyz--chain------")(
+  mlog("xyz--fmap------")(
     xyz
-      .chain(double)
-      .chain(double)
-      .chain((add1)(add1))
-      .chain(add1)
+      .fmap(double)
+      .fmap(double)
+      .fmap((add1)(add1))
+      .fmap(add1)
   );
 
   mlog("------")(
-    (M)(888).chain(add1)
+    (M)(999).fmap(add1)
   );
   mlog("------")(
-    (add1)(add1).chain(f => f(3)) //4,4
+    (add1)(add1).fmap(f => f(3)) //4,4
   );
 
   mlog("------")(
-    (M)(9).chain(x => x)
+    (M)(9).fmap(x => x)
   );
   console.log("------");
 
-  const plus = (x) => (y => x + y);
-  console.log(
-    plus(1)(5)
-  );
-  mlog("------")(
-    (M)(1).chain(plus(5))
-  );
-  mlog("------")(
-    (M)(plus).chain(plus)
+  const plus = (M)((x) => (y => x + y));
+
+  mlog("--work----")(
+    (M)(1)
+      .fmap(M(5)
+        .fmap(plus))
   );
 
-  const plus1 = (M)(1).chain(plus);
-  mlog("------")(
-    M(5)(plus1)
-      .chain(plus1)
-  );
-  mlog("------")(
-    (plus1)
-      .chain(plus1)
-  );
-  mlog("------")(
+  const plus1 = (M)(1)
+    .fmap(plus);
+  mlog("-list-----")(
     (plus1)(plus1)
   );
 
-  mlog("------")(
-    (plus1)(5)
+  mlog("---work---")(
+    (M)(1)(2)(3)
+      .fmap((plus1)(plus1))
   );
-  mlog("------")(
-    M(5).chain(plus1)
-  );
-
-
-
 
 
 })();

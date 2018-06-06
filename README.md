@@ -36,9 +36,9 @@ const operator = list => {
 };
 const M = _M();
 
-const x = M(1);
-const y = M(2);
-const z = M(5);
+const x = (M)(1);
+const y = (M)(2);
+const z = (M)(5);
 
 console.log(x);
 console.log(
