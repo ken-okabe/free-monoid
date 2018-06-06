@@ -6,13 +6,13 @@
   const _M = () => freeMonoid(operator);
   const operator = list => {
     const M = list.M;
-    list.fold = (f) => (M)(list.val.reduce((M)(f).compose()));
-    list.fmap = (f) => list.val
-      .reduce(morphism((M)(f).compose()), (M));
-    const morphism = (f) => (m, x) => (m)(f(x));
+    list.freeFrom = arr => arr.reduce((m, x) => (m)(x), (M));
+    list.fold = (f) => (M)(list.val
+      .reduce((M)(f).compose()));
+    list.fmap = (f) => list.freeFrom(list.val
+      .map((M)(f).compose()));
     list.compose = () => list.val
-      .reduce(composition);
-    const composition = (f, g) => (x => g(f(x)));
+      .reduce((f, g) => (x => g(f(x))));
   };
   const M = _M();
 
