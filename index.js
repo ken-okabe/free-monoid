@@ -21,6 +21,7 @@
         return a;
       })();
     M.identity = true;
+    M.val = (m) => (m);
     return M;
   };
   //------------------
