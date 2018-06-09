@@ -17,6 +17,8 @@
         a.val = a.val ? [] : [m];
         a.units = [a];
         a.M = (m) => M(m);
+        a.M.identity = true;
+        a.M.val = (m) => (m);
         operator(a);
         return a;
       })();
