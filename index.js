@@ -19,7 +19,7 @@
           ma.val = [a];
           ma.M = m;
           ma.units = m.units.concat(ma);
-          operator(a);
+          operator(ma);
           return ma;
         })();
       m.identity = true;
