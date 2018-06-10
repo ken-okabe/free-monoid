@@ -71,4 +71,15 @@
   );
 
 
+  console.log(
+    "============================================"
+  );
+  console.log(
+    M([444, [555, 44]])
+  );
+  const toList = arr => arr.reduce((a, b) => (a)(b), (M));
+  console.log(
+    toList([2, 1])
+  );
+
 })();
