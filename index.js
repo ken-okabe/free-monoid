@@ -1,29 +1,31 @@
 (() => {
   "use strict";
   const freeMonoid = (operator) => (() => {
+    Array.prototype.flatten = function() {
+      return Array.prototype.concat.apply([], this);
+    };
     const M = (() => { //(M)(a)(b)
-      const m = (a) => (!!a && (!!a.M || a.identity))
+      const m = (a) => (!!a && (!!a.M || a.identity)) //left id M
         ? (a)
         : (() => {
-          const ma = b => (b.identity) //M
+          const ma = b => (b.identity) //right id M
             ? (ma)
             : !b.M
               ? (ma)(M(b))
               : (() => {
                 const mab = M();
-                const [m, ...bUnits] = b.units;
-                mab.units = ma.units.concat(bUnits);
+                mab.units = ma.units.concat(b.units);
                 mab.val = mab.units.map(unit => unit.val[0]);
                 return mab; // (m)(a)(b)
               })();
-          ma.val = [a];
+          ma.val = [a].flatten();
           ma.M = m;
-          ma.units = m.units.concat(ma);
+          ma.units = [ma];
           operator(ma);
           return ma;
         })();
       m.identity = true;
-      m.val = ["__IDENTITY__"];
+      m.val = [m]; //["__IDENTITY__"];
       m.units = [m];
       return m;
     })();
