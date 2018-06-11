@@ -21,8 +21,8 @@
                   mab.val = mab.units.map(unit => unit.val[0]);
                   return mab; // (m)(a)(b)
                 })();
-            ma.val = [a];
             ma.M = m;
+            ma.val = [a];
             ma.units = [ma];
             operator(ma);
             return ma;
