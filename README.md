@@ -1,14 +1,15 @@
 # Free Monoid
 
-#### npm package: [https://www.npmjs.com/package/free-monoid](https://www.npmjs.com/package/free-monoid)
+#### npm package: <https://www.npmjs.com/package/free-monoid>
 
-### Free moniod in JavaScript  
+### Free moniod in JavaScript
 
 ```js
 const M = freeMonoid(operator);
 ```
 
 ### Identity: (M)
+
 #### (M)(a) = (a) = (a)(M)
 
 ### Associative
@@ -54,7 +55,7 @@ console.log(xyz.eval()); //lazy eval
 ```
 
 ```sh
-103
+8
 ```
 
 ## List monad derived from `free-monoid`
@@ -102,4 +103,5 @@ mlog("------")(
 ## Other derivatives from `free-monoid`
 
 ### Timeline Monoid
-[https://www.npmjs.com/package/timeline-monoid](https://www.npmjs.com/package/timeline-monoid)
+
+<https://www.npmjs.com/package/timeline-monoid>
