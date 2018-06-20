@@ -61,43 +61,71 @@ console.log(xyz.eval()); //lazy eval
 ## List monad derived from `free-monoid`
 
 ```js
-const _M = () => freeMonoid(operator);
+const _listMonad = () => freeMonoid(operator);
 const operator = list => {
   const M = list.M;
-  list.freeFrom = arr => arr.reduce((m, x) => (m)(x), (M));
-  list.fold = (f) => (M)(list.val
-    .reduce((M)(f).compose()));
-  list.fmap = (f) => list.freeFrom(list.val
-    .map((M)(f).compose()));
-  list.compose = () => list.val
-    .reduce((f, g) => (x => g(f(x))));
-};
-const M = _M();
+  const toList = arr => arr.reduce((a, b) => (a)(b), (M));
+  const mVal = (f) => (M)(f).val[0];
+  list.Val = () => (list.val.length === 1)
+    ? list.val[0] : list.val;
+  list.fold = (op) => [M, ...list.units] //init = M
+    .reduce((a, b) => !!a.identity
+      ? b
+      : (() => {
+        const a1Val = b.val
+          .map(bVal => mVal(op)(a.Val(), bVal))[0];
+
+        return (M)(a1Val);
+      })());
+  list.bind = (f) => {
+    const list1 = list.units.map(unit => mVal(f)(unit.Val()));
+    return toList(list1);
+  };
+}; //===============================================
+const listMonad = _listMonad();
 ```
 
+#### monad laws validation
+
 ```js
-const plus = (M)((x) => (y => x + y));
+const util = require("util");
+const validate = a => b => util.inspect(a) === util.inspect(b)
+  ? true : false;
 
-mlog("------")(
-  (M)(1)
-    .fmap(M(5)
-      .fmap(plus))
+const f = x => (M)(x + 7);
+const g = x => (M)(x * 5);
+const a = 9;
+const m = (M)(3)(5)(7);
+
+console.log(
+  validate(
+    (M)(a).bind(f)
+  )(
+    f(a)
+  )
 );
-
-const plus1 = (M)(1)
-  .fmap(plus);
-
-mlog("------")(
-  (M)(1)(2)(3)
-    .fmap((plus1)(plus1))
+console.log(
+  validate(
+    m.bind(M)
+  )(
+    m
+  )
+);
+console.log(
+  validate(
+    m.bind(f)
+      .bind(g)
+  )(
+    m.bind(x => f(x)
+      .bind(g))
+  )
 );
 ```
 
 ```sh
-------
-6
-------
-3,4,5
+true
+true
+true
 ```
 
 ## Other derivatives from `free-monoid`
