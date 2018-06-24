@@ -60,30 +60,7 @@ console.log(xyz.eval()); //lazy eval
 
 ## List monad derived from `free-monoid`
 
-```js
-const _listMonad = () => freeMonoid(operator);
-const operator = list => {
-  const M = list.M;
-  const toList = arr => arr.reduce((a, b) => (a)(b), (M));
-  const mVal = (f) => (M)(f).val[0];
-  list.Val = () => (list.val.length === 1)
-    ? list.val[0] : list.val;
-  list.fold = (op) => [M, ...list.units] //init = M
-    .reduce((a, b) => !!a.identity
-      ? b
-      : (() => {
-        const a1Val = b.val
-          .map(bVal => mVal(op)(a.Val(), bVal))[0];
-
-        return (M)(a1Val);
-      })());
-  list.bind = (f) => {
-    const list1 = list.units.map(unit => mVal(f)(unit.Val()));
-    return toList(list1);
-  };
-}; //===============================================
-const listMonad = _listMonad();
-```
+<https://www.npmjs.com/package/list-monad>
 
 #### monad laws validation
 
