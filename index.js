@@ -1,17 +1,18 @@
 (() => {
   "use strict";
   const freeMonoid = (operator) => (() => {
-    Array.prototype.flatten = function() {
-      return Array.prototype.concat.apply([], this);
-    };
+    const flattenDeep = (arr1) => arr1
+      .reduce((acc, val) => Array.isArray(val)
+        ? acc.concat(flattenDeep(val))
+        : acc.concat(val), []);
     const M = (() => { //(M)(a)(b)
       const toList = arr => arr.reduce((a, b) => (a)(b), (M));
       const m = (a) => (Array.isArray(a))
-        ? toList(a.flatten())
-        : (!!a && (!!a.M || a.identity)) //left id M
+        ? toList(flattenDeep(a))
+        : (!!a && !!a.M)
           ? (a)
           : (() => {
-            const ma = b => (b.identity) //right id M
+            const ma = b => (b === m) // right id
               ? (ma)
               : !b.M
                 ? (ma)(M(b))
@@ -27,12 +28,11 @@
             operator(ma);
             return ma;
           })();
-      m.identity = true;
       m.M = m;
       m.val = [m]; //["__IDENTITY__"];
       m.units = [m];
       operator(m);
-      return m;
+      return (m);
     })();
     return M;
   })();
